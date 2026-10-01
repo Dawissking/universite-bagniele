@@ -467,15 +467,22 @@ const THEMES = {
     themeColor: "#0f4d3a",
     icon: "images/favicon-32.png",
     apple: "images/apple-touch-icon.png",
-    logo: "images/logo-ubd.png",
+    /* La marque des pages UBD est le logotype CSUP-Bagnélé Diarra, reconnu
+       comme identité de l'université. L'emblème PESUP-Santé devient le
+       partenaire affiché à droite de la barre d'actions. */
+    logo: "images/Logo_CSUP.png",
     logoWhite: "images/logo-ubd-blanc.png",
     logoPesupWhite: "images/logo-pesup-blanc.png",
-    logoCsup: "images/Logo_CSUP.png",
-    csupHref: "pages/pesup-sante.html",
-    /* Le jeu ne contient aucun logo de l'universite : l'embleme employe en
-       marque appartient a la PESUP-Sante. L'image est donc traitee comme
-       decorative a cote du nom du site, et non presentee comme un logo UBD. */
-    logoAlt: "",
+    partner: {
+      src: "images/logo-ubd.png",
+      mod: "pesup",
+      alt: "Emblème de la PESUP-Santé Bagnélé Diarra",
+      title: "PESUP-Santé Bagnélé Diarra",
+      href: "pages/pesup-sante.html",
+      width: 180,
+      height: 204
+    },
+    logoAlt: "Logo du CSUP Bagnélé Diarra",
     nav: UBD_NAV,
     footNav: [
       ["Accueil", "index.html"],
@@ -508,11 +515,20 @@ const THEMES = {
     apple: null,
     /* La marque de l'ecole est l'embleme PESUP-Sante (logo-ubd*.png) : le
        fichier nomme logo-pesup.png contenait en realite le logotype CSUP. */
+    /* Marque : emblème PESUP-Santé. Le partenaire de barre reste le
+       logotype CSUP, sans destination propre sur le pôle santé. */
     logo: "images/logo-ubd.png",
     logoWhite: "images/logo-ubd-blanc.png",
     logoPesupWhite: "images/logo-pesup-blanc.png",
-    logoCsup: "images/Logo_CSUP.png",
-    csupHref: null,
+    partner: {
+      src: "images/Logo_CSUP.png",
+      mod: "csup",
+      alt: "Logo du CSUP Bagnélé Diarra",
+      title: "CSUP Bagnélé Diarra",
+      href: null,
+      width: 477,
+      height: 226
+    },
     logoAlt: "Logo de PESUP-Santé Bagnélé Diarra",
     nav: PESUP_NAV,
     footNav: [
@@ -583,15 +599,16 @@ function buildPage(file, themeKey, title, desc, body, activeFile, opts) {
   const home = opts.home !== undefined ? opts.home : t.home;
   const ctaHref = home + (themeKey === "pesup" ? "pages/pesup-admission.html" : "pages/admissions.html");
   const contactHref = home + (themeKey === "pesup" ? "pages/pesup-contact.html" : "pages/contact.html");
-  /* Le second badge est le logo CSUP : sur le site UBD il renvoie vers le pôle
-     sante, sur le site PESUP il n'a aucune destination propre et devient une
-     simple marque illustrative plutot qu'un lien vers lui-meme. */
-  const csupTag = t.csupHref
-    ? `<a class="header__partner header__partner--csup" href="${home + t.csupHref}" title="CSUP Bagnélé Diarra">\n` +
-      `        <img src="${home + t.logoCsup}" alt="Logo du CSUP Bagnélé Diarra" width="477" height="226">\n` +
+  /* Le second badge porte l'autre logo du réseau : emblème PESUP-Santé sur
+     les pages UBD (lien vers le pôle santé), logotype CSUP sur les pages
+     PESUP (marque illustrative, sans destination propre). */
+  const p = t.partner;
+  const partnerTag = p.href
+    ? `<a class="header__partner header__partner--${p.mod}" href="${home + p.href}" title="${p.title}">\n` +
+      `        <img src="${home + p.src}" alt="${p.alt}" width="${p.width}" height="${p.height}">\n` +
       `      </a>`
-    : `<span class="header__partner header__partner--csup" title="CSUP Bagnélé Diarra">\n` +
-      `        <img src="${home + t.logoCsup}" alt="Logo du CSUP Bagnélé Diarra" width="477" height="226">\n` +
+    : `<span class="header__partner header__partner--${p.mod}" title="${p.title}">\n` +
+      `        <img src="${home + p.src}" alt="${p.alt}" width="${p.width}" height="${p.height}">\n` +
       `      </span>`;
   /* Sans icone tactile dimensionnée, l'attribut est omis plutot que de renvoyer
      vers un fichier de 32 px. */
@@ -605,7 +622,7 @@ function buildPage(file, themeKey, title, desc, body, activeFile, opts) {
     .replace(/__HOME__/g, home)
     .replace(/__CTAHREF__/g, ctaHref)
     .replace(/__CONTACTHREF__/g, contactHref)
-    .replace(/__CSUPTAG__/g, csupTag)
+    .replace(/__CSUPTAG__/g, partnerTag)
     .replace(/__NAV__/g, buildNav(t.nav, home, active))
     .replace(/__DRAWERNAV__/g, buildDrawer(t.nav, home, active))
     .replace(/__POLESWITCH__/g, buildTopbarPoles(home, themeKey))

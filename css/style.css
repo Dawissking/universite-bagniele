@@ -1960,10 +1960,15 @@ mark {
   height: 30px;
 }
 
+/* L'emblème PESUP est vertical : légèrement plus haut pour rester lisible. */
+.header__partner--pesup img {
+  height: 36px;
+}
+
 /* En-tete adaptatif : la navigation reste complete tant qu'elle tient ;
-   elle ne bascule dans le tiroir qu'en dernier recours. */
-.header--compact .header__divider,
-.header--compact .header__partner {
+   elle ne bascule dans le tiroir qu'en dernier recours. Chaque niveau
+   retire un element de plus, les deux logos tenant jusqu'au dernier. */
+.header--compact .header__divider {
   display: none;
 }
 
@@ -1984,8 +1989,13 @@ mark {
   height: 44px;
 }
 
-.header--menu .header__divider,
-.header--menu .header__partner {
+/* Niveau "tight" : le nom cède la place, la marque reste en logos. */
+.header--tight .header__divider,
+.header--tight .brand__text {
+  display: none;
+}
+
+.header--menu .header__divider {
   display: none;
 }
 
@@ -1995,6 +2005,11 @@ mark {
 
 .header--menu .burger {
   display: grid;
+}
+
+/* Dernier recours : le partenaire cède lui aussi. */
+.header--minimal .header__partner {
+  display: none;
 }
 
 /* Bouton burger */
@@ -4470,11 +4485,10 @@ select.field__control {
    15. RESPONSIVE
    ========================================================================== */
 
-/* Ecrans moyens : le logo partenaire et la navigation complete ne tiennent
-   plus tous les deux ; on retire d'abord les elements secondaires. */
+/* Ecrans moyens : la rangee d'actions gagne la place du separateur et la
+   navigation se resserre ; les deux logos restent affiches. */
 @media (max-width: 1500px) {
-  .header__divider,
-  .header__partner {
+  .header__divider {
     display: none;
   }
 
@@ -4485,15 +4499,15 @@ select.field__control {
 
 /* Repli sans JavaScript : en dessous de ce seuil la navigation complete ne
    tient plus jamais, le tiroir prend le relais (js/main.js decide au
-   dessus, selon la place reellement disponible). */
+   dessus, selon la place reellement disponible). Les deux logos tiennent
+   a droite du bouton, ils ne cedent que sur les petits telephones. */
 @media (max-width: 1024px) {
   :root {
     --header-h: 70px;
   }
 
   .nav,
-  .header__divider,
-  .header__partner {
+  .header__divider {
     display: none;
   }
 
@@ -4711,6 +4725,12 @@ select.field__control {
 }
 
 @media (max-width: 520px) {
+  /* Sur telephone le nom cede la place : le logo et le partenaire
+     restent, le nom complet se retrouve dans le tiroir. */
+  .navbar .brand__text {
+    display: none;
+  }
+
   .gallery-grid,
   .gallery-grid--4 {
     grid-template-columns: 1fr;
@@ -4738,6 +4758,14 @@ select.field__control {
   }
 
   .footer__sep {
+    display: none;
+  }
+}
+
+/* Tres petits telephones : le partenaire cede la place, comme en mode
+   "header--minimal" sur grand ecran. */
+@media (max-width: 380px) {
+  .navbar .header__partner {
     display: none;
   }
 }

@@ -1,7 +1,7 @@
 node_modules/
 tools/dist/
 .vscode/
-ubd-site.zip
+*.zip
 site/
 *.log
 .DS_Store

@@ -248,11 +248,16 @@
   /* La navigation reste affichée tant qu'elle tient réellement dans la
      barre : le menu burger n'intervient qu'en dernier recours, au lieu
      d'un seuil de largeur fixe qui dépend de la mise à l'échelle de
-     l'écran. Le repli CSS (1024px) couvre l'absence de JavaScript. */
+     l'écran. Chaque niveau retire un élément de plus, dans cet ordre :
+     le separateur, le nom de la marque, la navigation, enfin le logo
+     partenaire — les deux logos tenant jusqu'au tout dernier niveau.
+     Le repli CSS (1024px) couvre l'absence de JavaScript. */
   function initHeaderFit() {
     var header = $(".header");
     var navbar = $(".navbar");
     if (!header || !navbar) return;
+
+    var LEVELS = ["header--compact", "header--tight", "header--menu", "header--minimal"];
 
     function requiredWidth() {
       var parts = [$(".brand", navbar), $("nav", navbar), $(".header__actions", navbar)].filter(Boolean);
@@ -272,12 +277,14 @@
     }
 
     function fit() {
-      header.classList.remove("header--compact", "header--menu");
+      LEVELS.forEach(function (level) {
+        header.classList.remove(level);
+      });
       if (window.innerWidth <= 1024) return;
-      if (fits()) return;
-      header.classList.add("header--compact");
-      if (fits()) return;
-      header.classList.add("header--menu");
+      for (var i = 0; i < LEVELS.length; i++) {
+        header.classList.add(LEVELS[i]);
+        if (fits()) return;
+      }
     }
 
     var timer = null;
