@@ -1,0 +1,18 @@
+{
+  "name": "ubd-outils",
+  "private": true,
+  "type": "commonjs",
+  "description": "Generateurs de pages et controles qualite du site UBD / PESUP-Sante.",
+  "scripts": {
+    "build": "node build-ubd.js && node build-legal.js && node build-pesup1.js && node build-pesup2.js",
+    "check": "node check-all.js",
+    "interactions": "node check-interactions.js",
+    "contrast": "node check-contrast.js",
+    "images": "node check-images.js",
+    "placeholders": "node check-placeholders.js",
+    "components": "node check-components.js"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.0"
+  }
+}
