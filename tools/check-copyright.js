@@ -2,11 +2,13 @@ const fs = require("fs");
 const path = require("path");
 
 const files = [];
+const SKIP = new Set(["node_modules", "tools", ".git", ".github"]);
 (function walk(p) {
   for (const e of fs.readdirSync(p, { withFileTypes: true })) {
     const q = p + "/" + e.name;
-    if (e.isDirectory()) walk(q);
-    else if (/\.html$/.test(e.name)) files.push(q);
+    if (e.isDirectory()) {
+      if (!SKIP.has(e.name)) walk(q);
+    } else if (/\.html$/.test(e.name)) files.push(q);
   }
 })(path.join(__dirname, ".."));
 

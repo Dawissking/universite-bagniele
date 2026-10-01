@@ -4,7 +4,7 @@
   "type": "commonjs",
   "description": "Generateurs de pages et controles qualite du site UBD / PESUP-Sante.",
   "scripts": {
-    "build": "node build-ubd.js && node build-legal.js && node build-pesup1.js && node build-pesup2.js",
+    "build": "node build-ubd.js && node build-legal.js && node build-pesup1.js && node build-pesup2.js && node pack.js",
     "check": "node check-all.js",
     "interactions": "node check-interactions.js",
     "contrast": "node check-contrast.js",
