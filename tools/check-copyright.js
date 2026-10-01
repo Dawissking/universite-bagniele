@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 
 const files = [];
 (function walk(p) {
@@ -7,7 +8,7 @@ const files = [];
     if (e.isDirectory()) walk(q);
     else if (/\.html$/.test(e.name)) files.push(q);
   }
-})("D:/Projet_Site_Bagnele");
+})(path.join(__dirname, ".."));
 
 /* Le pied de page attendu :
    © 2026 Université Bagnélé Diarra — Tous droits réservés.

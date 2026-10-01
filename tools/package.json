@@ -13,6 +13,6 @@
     "components": "node check-components.js"
   },
   "devDependencies": {
-    "jsdom": "^25.0.0"
+    "jsdom": "^30.1.1"
   }
 }

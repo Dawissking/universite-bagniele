@@ -3,8 +3,9 @@
    (apres '{' ou ';'), afin d'ignorer les pseudo-classes BEM type .btn--primary:hover. */
 
 const fs = require("fs");
+const path = require("path");
 
-const css = fs.readFileSync("D:/Projet_Site_Bagnele/css/style.css", "utf8");
+const css = fs.readFileSync(path.join(__dirname, "..", "css", "style.css"), "utf8");
 
 /* Retire commentaires et chaines pour eviter les faux positifs. */
 const clean = css
