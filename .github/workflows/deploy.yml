@@ -47,6 +47,7 @@ jobs:
             --exclude 'tools' \
             --exclude 'site' \
             --exclude 'README.md' \
+            --exclude 'package.json' \
             --exclude 'ubd-site.zip' \
             ./ site/
           git config --global user.name "github-actions[bot]"

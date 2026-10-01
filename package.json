@@ -1,0 +1,10 @@
+{
+  "name": "universite-bagniele",
+  "private": true,
+  "type": "commonjs",
+  "description": "Site statique Universite Bagniele Diarra / PESUP-Sante.",
+  "scripts": {
+    "build": "npm --prefix tools install --no-audit --no-fund && npm --prefix tools run build",
+    "check": "npm --prefix tools run check"
+  }
+}
